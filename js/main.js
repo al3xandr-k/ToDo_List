@@ -51,6 +51,7 @@ const render = () => {
 todoControl.addEventListener('submit', event => {
   event.preventDefault();
 
+
   const newTodo = {
     value: headerInput.value,
     completed: false
@@ -59,7 +60,7 @@ todoControl.addEventListener('submit', event => {
   todoData.push(newTodo);
   // localStorage.setItem('todo', JSON.stringify(todoData));
 
-  if (headerInput.value === '' || headerInput.value === null) {
+  if (headerInput.value === '' || headerInput.value === null || headerInput.value !== headerInput.replace(/\s/g, '')) {
     todoData.pop(newTodo);
   }
 
