@@ -11,15 +11,17 @@ const render = () => {
   todoList.textContent = '';
   todoCompleted.textContent = '';
 
-  todoData.forEach(item => {
+  todoData.forEach((item, i) => {
     const li = document.createElement('li');
     li.classList.add('todo-item');
 
-    li.innerHTML = `<span class="text-todo">${item.value}</span>
+    li.innerHTML = `
+    <span class="text-todo">${item.value}</span>
     <div class="todo-buttons">
       <button class="todo-remove"></button>
       <button class="todo-complete"></button>
-    </div>`;
+    </div>
+    `;
 
     if (item.completed) {
       todoCompleted.append(li);
@@ -37,7 +39,7 @@ const render = () => {
     const btnTodoRemove = li.querySelector('.todo-remove');
 
     btnTodoRemove.addEventListener('click', () => {
-
+      todoData.splice(i, 1);
       render();
     })
   })
@@ -51,7 +53,6 @@ const render = () => {
 todoControl.addEventListener('submit', event => {
   event.preventDefault();
 
-
   const newTodo = {
     value: headerInput.value,
     completed: false
@@ -60,11 +61,12 @@ todoControl.addEventListener('submit', event => {
   todoData.push(newTodo);
   // localStorage.setItem('todo', JSON.stringify(todoData));
 
-  if (headerInput.value === '' || headerInput.value === null || headerInput.value !== headerInput.replace(/\s/g, '')) {
+  if (headerInput.value === '' || headerInput.value === null) {
     todoData.pop(newTodo);
   }
-
+  headerInput.value = '';
   render();
 });
+
 
 render();
