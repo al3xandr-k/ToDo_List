@@ -52,13 +52,13 @@ const render = () => {
 
 todoControl.addEventListener('submit', event => {
   event.preventDefault();
-
-  const newTodo = {
-    value: headerInput.value,
-    completed: false
+  if (headerInput.value.trim() !== '') {
+    const newTodo = {
+      value: headerInput.value,
+      completed: false
+    }
+    todoData.push(newTodo);
   }
-
-  todoData.push(newTodo);
 
   if (headerInput.value === '' || headerInput.value === null) {
     todoData.pop(newTodo);
@@ -66,6 +66,5 @@ todoControl.addEventListener('submit', event => {
   headerInput.value = '';
   render();
 });
-
 
 render();
